@@ -91,7 +91,7 @@ export const useProducts = () => {
   };
 
   const useUpdateProducts = () => {
-    console.log('update');
+    
     productsForm.value.validate().then((valid: boolean) => {
       if (valid) {
         store.useUpdateProducts({

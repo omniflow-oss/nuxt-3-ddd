@@ -12,6 +12,10 @@
     "**/*.{js,jsx,ts,tsx,json,css,scss,md,vue}": [
       "prettier --write",
       "git add -A"
+    ],
+    "**/*.{vue,less,scss}": [
+      "stylelint --fix",
+      "git add -A"
     ]
   },
   "scripts": {

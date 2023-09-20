@@ -47,7 +47,9 @@
         <a-upload
           :accept="acceptOnly"
           list-type="picture"
-          :action="useNuxtApp().$config.API + useNuxtApp().$config.WS_ADD_MEDIA + $i18n.locale + pathAssetManager"
+          :action="
+            useNuxtApp().$config.publicAPI + useNuxtApp().$config.publicWS_ADD_MEDIA + $i18n.locale + pathAssetManager
+          "
           :headers="Object.keys(headerUpload).length == 0 ? header : headerUpload"
           :file-list="file[index].fileList"
           :read-only="readOnly"

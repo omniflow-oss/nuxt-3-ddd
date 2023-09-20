@@ -38,10 +38,7 @@ export default {
             let slugs: any = p.match(/(?:\/\b_\w+\b(?!\.vue))/g);
             let n = `${resolve(dirname).split(sep).pop()}${
               /index$/g.test(pageName) && !/\[|_/.test(pageName)
-                ? pageName
-                    .replace(/\//g, '-')
-                    .replace(/index$/g, '')
-                    .replace(/-$/, '')
+                ? ''
                 : '-' + pageName.replace(/^\/|\]|\[\.\.\.|\[|\/index/g, '').replace(/\/\[|\//gi, '-')
             }`;
             let names: any = n.match(/(?:-\b_\w+\b(?!\.vue))/g);
@@ -94,24 +91,32 @@ export default {
   /**
    * Register locales
    */
-  registerLocales() {
+  registerLocales(nuxt: any) {
     const dirname: any = this.dirname;
     const moduleName: string = this.moduleName();
-    return {
-      'i18n:extend-messages'(additionalMessages: any) {
-        const files: string[] = glob.sync('*.json', {
-          cwd: `${dirname}/locales`,
+    const files: string[] = glob.sync('*.json', {
+      cwd: `${dirname}/locales`,
+    });
+    let languages: any = [];
+    for (const file of files) {
+      languages.push({ code: file.replace(/.json$/, ''), file: file });
+      const file2 = require(resolve(`${dirname}/locales/${file}`));
+      if (!file2[moduleName.toUpperCase()]) {
+        const newFile = {
+          [moduleName.toUpperCase()]: file2,
+        };
+        fs.writeFile(`${dirname}/locales/${file}`, JSON.stringify(newFile, null, 2), function writeJSON(err) {
+          if (err) return console.log(err);
         });
-        for (const file of files) {
-          const translation = require(resolve(dirname + '/locales', file));
-          additionalMessages.unshift({
-            [file.replace(/.json$/, '')]: {
-              [moduleName.toUpperCase()]: translation,
-            },
-          });
-        }
-      },
-    };
+      }
+    }
+    return nuxt.hook('i18n:registerModule', (register: any) => {
+      register({
+        // langDir path needs to be resolved
+        langDir: resolve(dirname + '/locales'),
+        locales: languages,
+      });
+    });
   },
   /**
    * Register module component
@@ -171,7 +176,6 @@ export default {
       },
       'imports:dirs'(dirs: any) {
         dirs.unshift(resolve(dirname, './composables'));
-        dirs.unshift(resolve(dirname, './utils'));
         dirs.unshift(resolve(dirname, './stores'));
       },
     };
@@ -225,7 +229,6 @@ export default {
     return {
       ...this.registerRoutes(),
       ...this.registerComponents(),
-      ...this.registerLocales(),
       ...this.registerComposables(),
     };
   },
@@ -234,5 +237,6 @@ export default {
     this.registerPlugins();
     this.registerMiddlewares();
     this.registerLayouts();
+    this.registerLocales(nuxt);
   },
 };

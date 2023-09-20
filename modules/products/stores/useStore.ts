@@ -20,7 +20,7 @@ export const useProductsStore = defineStore('useProductsStore', {
     async useAddProducts({ $data, onError, onSuccess }: any) {
       this.loading = true;
       try {
-        const response: any = await fetch(useNuxtApp().$config.API + useNuxtApp().$config.WS_PRODUCTS_ADD, {
+        const response: any = await fetch(useNuxtApp().$config.publicAPI + useNuxtApp().$config.publicWS_PRODUCTS_ADD, {
           method: 'POST',
           headers: getHeaders(),
           body: JSON.stringify($data),
@@ -42,10 +42,13 @@ export const useProductsStore = defineStore('useProductsStore', {
       this.product = {};
       this.loading = true;
       try {
-        const response: any = await fetch(useNuxtApp().$config.API + useNuxtApp().$config.WS_PRODUCTS_GET + '/' + $id, {
-          method: 'GET',
-          headers: getHeaders(),
-        });
+        const response: any = await fetch(
+          useNuxtApp().$config.publicAPI + useNuxtApp().$config.publicWS_PRODUCTS_GET + '/' + $id,
+          {
+            method: 'GET',
+            headers: getHeaders(),
+          }
+        );
         const res = await response.json();
         this.loading = false;
         if (response.status == 200) {
@@ -63,10 +66,13 @@ export const useProductsStore = defineStore('useProductsStore', {
     async useProductsList({ onError, onSuccess }: any) {
       this.loading = true;
       try {
-        const response: any = await fetch(useNuxtApp().$config.API + useNuxtApp().$config.WS_PRODUCTS_LIST, {
-          method: 'GET',
-          headers: getHeaders(),
-        });
+        const response: any = await fetch(
+          useNuxtApp().$config.publicAPI + useNuxtApp().$config.publicWS_PRODUCTS_LIST,
+          {
+            method: 'GET',
+            headers: getHeaders(),
+          }
+        );
         const res = await response.json();
         this.loading = false;
         if (response.status == 200) {
@@ -84,10 +90,13 @@ export const useProductsStore = defineStore('useProductsStore', {
       this.loading = true;
       try {
         useNuxtApp;
-        const response: any = await fetch(useNuxtApp().$config.API + useNuxtApp().$config.WS_PRODUCTS_LIST, {
-          method: 'GET',
-          headers: { ...getHeaders(), ...$filters },
-        });
+        const response: any = await fetch(
+          useNuxtApp().$config.publicAPI + useNuxtApp().$config.publicWS_PRODUCTS_LIST,
+          {
+            method: 'GET',
+            headers: { ...getHeaders(), ...$filters },
+          }
+        );
         const res = await response.json();
         this.loading = false;
         if (response.status == 200) {
@@ -106,7 +115,7 @@ export const useProductsStore = defineStore('useProductsStore', {
       this.loading = true;
       try {
         const response: any = await fetch(
-          useNuxtApp().$config.API + useNuxtApp().$config.WS_PRODUCTS_UPDATE + '/' + $data.id,
+          useNuxtApp().$config.publicAPI + useNuxtApp().$config.publicWS_PRODUCTS_UPDATE + '/' + $data.id,
           {
             method: 'PUT',
             headers: getHeaders(),
@@ -129,7 +138,7 @@ export const useProductsStore = defineStore('useProductsStore', {
       this.loading = true;
       try {
         const response: any = await fetch(
-          useNuxtApp().$config.API + useNuxtApp().$config.WS_PRODUCTS_DELETE + '/' + $id,
+          useNuxtApp().$config.publicAPI + useNuxtApp().$config.publicWS_PRODUCTS_DELETE + '/' + $id,
           {
             method: 'DELETE',
             headers: getHeaders(),

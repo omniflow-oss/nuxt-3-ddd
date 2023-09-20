@@ -59,11 +59,11 @@ export const useSortByKey = (array: any, key: any) => {
 
 export const useGetExtraFieldsList = async ({ body, onError, onSuccess }: any) => {
   const api =
-    process.env.NODE_ENV != 'production' && !useNuxtApp().$config.public.DEBUG
-      ? useNuxtApp().$config.public.API_COMMON
-      : useNuxtApp().$config.public.API;
+    process.env.NODE_ENV != 'production' && !useNuxtApp().$config.publicpublic.DEBUG
+      ? useNuxtApp().$config.publicpublic.API_COMMON
+      : useNuxtApp().$config.publicpublic.API;
   try {
-    const response: any = await fetch(api + useNuxtApp().$config.WS_EXTRA_FIELDS_LIST, {
+    const response: any = await fetch(api + useNuxtApp().$config.publicWS_EXTRA_FIELDS_LIST, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(body),

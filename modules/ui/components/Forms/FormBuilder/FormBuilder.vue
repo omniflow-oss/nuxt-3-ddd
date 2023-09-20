@@ -442,7 +442,10 @@ const formElts: any = ref([]);
 const emit: any = defineEmits(formEvents(null).events);
 const { useClearValidate, useFormDataChange, useTextEditorFileUpload }: any = formEvents(emit);
 let formReactiveKey: any = {};
-const url = useNuxtApp().$config.API + useNuxtApp().$config.WS_ADD_MEDIA + useNuxtApp().$i18n.locale.value;
+const url =
+  useNuxtApp().$config.publicpublic.API +
+  useNuxtApp().$config.publicpublic.WS_ADD_MEDIA +
+  useNuxtApp().$i18n.locale.value;
 const file: any = ref({});
 const headersUpload = {
   authorization: decodeURIComponent(useNuxtApp().$auth.token),

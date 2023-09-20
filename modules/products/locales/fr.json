@@ -1,14 +1,16 @@
 {
-  "TITLE": "Produit",
-  "ID": "Identifiant",
-  "BODY": "Description",
-  "USERID": "Identifiant Utilisateurs",
-  "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec",
-  "FILTER": {
-    "ALL": "Tout",
-    "NEWS": "Actualités",
-    "TECH": "HighTech"
-  },
-  "SEARCHPRODUCTS": "Rechercher un produit",
-  "ADDPRODUCTS": "Ajouter un produit"
+  "PRODUCTS": {
+    "TITLE": "Produit",
+    "ID": "Identifiant",
+    "BODY": "Description",
+    "USERID": "Identifiant Utilisateurs",
+    "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec",
+    "FILTER": {
+      "ALL": "Tout",
+      "NEWS": "Actualités",
+      "TECH": "HighTech"
+    },
+    "SEARCHPRODUCTS": "Rechercher un produit",
+    "ADDPRODUCTS": "Ajouter un produit"
+  }
 }

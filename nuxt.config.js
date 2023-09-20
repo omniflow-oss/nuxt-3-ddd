@@ -1,11 +1,10 @@
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import { resolve, basename } from 'pathe';
-import localeEN from './locales/en.json';
-import localeFR from './locales/fr.json';
 const baseFolder = basename(resolve(__dirname));
 export default defineNuxtConfig({
   ssr: false,
+  devtools: false,
   app: {
     rootId: '__app',
     buildAssetsDir: '/src/',
@@ -33,7 +32,6 @@ export default defineNuxtConfig({
       }
     },
   },
-  devtools: true,
   vite: {
     server: {
       fs: {
@@ -85,17 +83,14 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n', // keep last
   ],
   i18n: {
-    locales: ['en', 'fr'],
+    locales: [
+      { code: 'fr', file: 'fr.json' },
+      { code: 'en', file: 'en.json' },
+    ],
+    langDir: './locales',
     dynamicRouteParams: true,
     strategy: 'prefix',
     baseUrl: 'en',
-    vueI18n: {
-      fallbackLocale: 'en',
-      messages: {
-        ['en']: localeEN,
-        ['fr']: localeFR,
-      },
-    },
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',

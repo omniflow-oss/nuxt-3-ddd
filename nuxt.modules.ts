@@ -36,10 +36,13 @@ export default {
               .replace(/\[((?:[a-z|0-9]*))+\]/g, ':$1')}`;
 
             let slugs: any = p.match(/(?:\/\b_\w+\b(?!\.vue))/g);
-            let n = `${resolve(dirname).split(sep).pop()}${
+             let n = `${resolve(dirname).split(sep).pop()}${
               /index$/g.test(pageName) && !/\[|_/.test(pageName)
-                ? ''
-                : '-' + pageName.replace(/^\/|\]|\[\.\.\.|\[|\/index/g, '').replace(/\/\[|\//gi, '-')
+                ? pageName
+                    .replace(/\//g, '-')
+                    .replace(/index$/g, '')
+                    .replace(/-$/, '') :
+                '-' + pageName.replace(/^\/|\]|\[\.\.\.|\[|\/index/g, '').replace(/\/\[|\//gi, '-')
             }`;
             let names: any = n.match(/(?:-\b_\w+\b(?!\.vue))/g);
             p = p.replace(/(?:\/\b_\w+\b(?!\.vue))/g, '');
@@ -63,11 +66,30 @@ export default {
         };
         if (config.routes) {
           config.routes.forEach((route: any) => {
-            pages.unshift({
+            let slugs2: any = route.path.match(/(?:\/\b_\w+\b(?!\.vue))/g);
+            let p2 = route.path.replace(/(?:\/\b_\w+\b(?!\.vue))/g, '');
+            if(slugs2){
+              for (var i = slugs2.length - 1; i >= 0; i--) {
+                p2 = `${slugs2[i].replace(/_/g, ':')}${p2}`;
+              }
+            }
+            let o:any = {
               name: route?.name || dirname,
-              path: route.path.replace(/\/$/g, '') + '/',
+              path: p2.replace(/\/$/g, '') + '/',
               file: resolve(dirname, `./pages/${route.page}`),
-            });
+            }
+
+            if(route.children && route.children.length>0){
+              o.children = [];
+              route.children.forEach((child: any) => {
+                o.children.push({
+                  name: child.name,
+                  path: child.path,
+                  file: resolve(__dirname, './'+child.file),
+                })
+              });           
+            }
+            pages.unshift(o);
           });
         }
         for (const file of files) {

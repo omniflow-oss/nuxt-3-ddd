@@ -12,12 +12,6 @@ export default defineConfig({
   },
   env: {
     API: process.env.API,
-    API_COMMON: process.env.API_COMMON,
-    API_MOCK: process.env.API_MOCK,
-    API_COMMON_MOCK: process.env.API_MOCK_COMMON,
-    AUTH_BASE_URL: process.env.KEYCLOAK_BASE_URL,
-    AUTH_REALM: process.env.REALMS,
-    AUTH_CLIENT_ID: process.env.CLIENT_ID,
-    AUTH_CLIENT_SECRET: process.env.CLIENT_SECRET_KEY,
+    API_MOCK: process.env.API_MOCK
   },
 });
